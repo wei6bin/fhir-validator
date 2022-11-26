@@ -1,0 +1,81 @@
+{
+  "resourceType": "CarePlan",
+  "status": "active",
+  "intent": "plan",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://ihis.sg/ValueSet/hsg-care-plan-category",
+          "code": "pophealth-plan"
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "type": "Patient",
+    "identifier": {
+      "system": "http://ihis.sg/identifier/nric",
+      "value": "S1234567A"
+    }
+  },
+  "contained": [
+    {
+      "resourceType": "Goal",
+      "id": "f873f0480edf4e7da98c01be4c05ad91",
+      "lifecycleStatus": "active",
+      "subject": {
+        "type": "Patient",
+        "identifier": {
+          "system": "http://ihis.sg/identifier/nric",
+          "value": "S1234567A"
+        }
+      },
+      "description": {
+        "coding": [
+          {
+            "system": "http://ihis.sg/ValueSet/hsg-health-goal",
+            "code": "G1"
+          }
+        ]
+      },
+      "target": [
+        {
+          "measure": {
+            "coding": [
+              {
+                "system": "http://ihis.sg/ValueSet/hsg-goal-measure",
+                "code": "GM001"
+              }
+            ]
+          },
+          "detailQuantity": {
+            "value": 65.8,
+            "system": "http://ihis.sg/ValueSet/hsg-ucum",
+            "code": "kg"
+          }
+          // "dueDuration": {
+          // 	"value": 1,
+          //     "system": "http://unitsofmeasure.org",
+          //     "code": "d"
+          // }
+        }
+      ]
+    }
+  ],
+  "period": {
+    "start": "2020-04-01T10:30:01+08:00"
+  },
+  "author": {
+    "type": "Organization",
+    "identifier": {
+      "system": "http://ihis.sg/identifier/hci-code",
+      "value": "a"
+    }
+  },
+  "goal": [
+    {
+      "reference": "#f873f0480edf4e7da98c01be4c05ad91"
+    }
+  ]
+}

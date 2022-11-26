@@ -1,0 +1,42 @@
+{
+  "resourceType": "StructureDefinition",
+  "url": "http://ihis.sg/StructureDefinition/HealthPlanGoal1",
+  "name": "TestGoal",
+  "status": "active",
+  "fhirVersion": "4.3.0",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Goal",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Goal",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Goal.target",
+        "path": "Goal.target",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Goal.target.detail[x]",
+        "path": "Goal.target.detail[x]",
+        "min": 1,
+        "type": [
+          {
+            "code": "Quantity"
+          }
+        ],
+        "binding": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName",
+              "valueString": "GoalTargetDetail"
+            }
+          ],
+          "strength": "required",
+          "valueSet": "http://unitsofmeasure.org"
+        }
+      }
+    ]
+  }
+}
