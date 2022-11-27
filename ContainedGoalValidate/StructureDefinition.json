@@ -1,10 +1,4 @@
 {
-  "resourceType": "Bundle",
-  "id": "structureDefinitions",
-  "meta": {
-    "lastUpdated": "2021-05-05T08:04:45.3420489+00:00"
-  },
-  "type": "collection",
   "entry": [
     {
       "fullUrl": "http://ihis.sg/StructureDefinition/CarePlan-pophealth-plan",
@@ -100,11 +94,11 @@
       }
     },
     {
-      "fullUrl": "http://ihis.sg/profile/G42",
+      "fullUrl": "http://ihis.sg/profile/G4",
       "resource": {
         "resourceType": "StructureDefinition",
-        "url": "http://ihis.sg/profile/G42",
-        "name": "G42",
+        "url": "http://ihis.sg/profile/G4",
+        "name": "G4",
         "status": "draft",
         "fhirVersion": "4.0.1",
         "kind": "resource",
@@ -118,7 +112,7 @@
               "id": "Goal.target",
               "path": "Goal.target",
               "min": 1,
-              "max": "2"
+              "max": "1"
             },
             {
               "id": "Goal.target.detail[x]",
@@ -137,12 +131,12 @@
       }
     },
     {
-      "fullUrl": "http://ihis.sg/profile/G4",
+      "fullUrl": "http://ihis.sg/profile/G42",
       "resource": {
         "resourceType": "StructureDefinition",
-        "url": "http://ihis.sg/profile/G4",
-        "name": "G4",
-        "status": "active",
+        "url": "http://ihis.sg/profile/G42",
+        "name": "G42",
+        "status": "draft",
         "fhirVersion": "4.0.1",
         "kind": "resource",
         "abstract": false,
@@ -151,32 +145,6 @@
         "derivation": "constraint",
         "differential": {
           "element": [
-            {
-              "id": "Goal.description.coding.system",
-              "path": "Goal.description.coding.system",
-              "fixedCode": "http://ihis.sg/ValueSet/hsg-health-goal"
-            },
-            {
-              "id": "Goal.description.coding.code",
-              "path": "Goal.description.coding.code",
-              "fixedCode": "G4"
-            },
-            {
-              "id": "Goal.description.coding.display",
-              "path": "Goal.description.coding.display",
-              "min": 1,
-              "constraint": {
-                "key": "g4-goal-display-validation",
-                "severity": "error",
-                "human": "Valid goal display value required for G4",
-                "expression": "$this.replace(' ', '') != ''"
-              }
-            },
-            {
-              "id": "Goal.target.measure.coding.system",
-              "path": "Goal.target.measure.coding.system",
-              "fixedUri": "http://ihis.sg/ValueSet/hsg-goal-measure"
-            },
             {
               "id": "Goal.target",
               "path": "Goal.target",
@@ -188,7 +156,9 @@
                   }
                 ],
                 "rules": "open"
-              }
+              },
+              "min": 1,
+              "max": "2"
             },
             {
               "id": "Goal.target:GM004",
@@ -215,90 +185,6 @@
               ]
             },
             {
-              "id": "Goal.target:GM004.detailRatio.numerator",
-              "path": "Goal.target.detailRatio.numerator",
-              "min": 1,
-              "type": [
-                {
-                  "code": "Quantity"
-                  //"profile": [
-                  //  "http://hl7.org/fhir/StructureDefinition/Duration"
-                  //]
-                }
-              ]
-            },
-            {
-              "id": "Goal.target:GM004.detailRatio.numerator.value",
-              "path": "Goal.target.detailRatio.numerator.value",
-              "minValueDecimal": 30,
-              "maxValueDecimal": 300
-            },
-            {
-              "id": "Goal.target:GM004.detailRatio.numerator.system",
-              "path": "Goal.target.detailRatio.numerator.system",
-              "fixedUri": "http://unitsofmeasure.org"
-            },
-            {
-              "id": "Goal.target:GM004.detailRatio.numerator.code",
-              "path": "Goal.target.detailRatio.numerator.code",
-              "fixedCode": "mm[Hg]"
-            },
-            {
-              "id": "Goal.target:GM004.detailRatio.denominator",
-              "path": "Goal.target.detailRatio.denominator",
-              "min": 1,
-              "type": [
-                {
-                  "code": "Quantity"
-                  //"profile": [
-                  //  "http://hl7.org/fhir/StructureDefinition/Duration"
-                  //]
-                }
-              ]
-            },
-            {
-              "id": "Goal.target:GM004.detailRatio.denominator.value",
-              "path": "Goal.target.detailRatio.denominator.value",
-              "minValueDecimal": 20,
-              "maxValueDecimal": 200
-            },
-            {
-              "id": "Goal.target:GM004.detailRatio.denominator.system",
-              "path": "Goal.target.detailRatio.denominator.system",
-              "fixedUri": "http://unitsofmeasure.org"
-            },
-            {
-              "id": "Goal.target:GM004.detailRatio.denominator.code",
-              "path": "Goal.target.detailRatio.denominator.code",
-              "fixedCode": "mm[Hg]"
-            },
-            {
-              "id": "Goal.target:GM004.due[x]",
-              "path": "Goal.target.due[x]",
-              "min": 1,
-              "type": [
-                {
-                  "code": "Duration"
-                }
-              ]
-            },
-            {
-              "id": "Goal.target:GM004.due[x].value",
-              "path": "Goal.target.due[x].value",
-              "minValueDecimal": 1,
-              "maxValueDecimal": 12
-            },
-            {
-              "id": "Goal.target:GM004.due[x].system",
-              "path": "Goal.target.due[x].system",
-              "fixedUri": "http://unitsofmeasure.org"
-            },
-            {
-              "id": "Goal.target:GM004.due[x].code",
-              "path": "Goal.target.due[x].code",
-              "fixedCode": "mo"
-            },
-            {
               "id": "Goal.target:GM005",
               "path": "Goal.target",
               "sliceName": "GM005",
@@ -313,37 +199,12 @@
             {
               "id": "Goal.target:GM005.detail[x]",
               "path": "Goal.target.detail[x]",
-              "min": 1,
               "type": [
                 {
-                  "code": "Quantity"
-                  //"profile": [
-                  //  "http://hl7.org/fhir/StructureDefinition/Duration"
-                  //]
-                }
-              ]
-            },
-            {
-              "id": "Goal.target:GM005.detail[x].value",
-              "path": "Goal.target.detail[x].value",
-              "minValueDecimal": 1,
-              "maxValueDecimal": 99
-
-            },
-            {
-              "id": "Goal.target:GM005.detail[x].system",
-              "path": "Goal.target.detail[x].system",
-              "fixedUri": "http://unitsofmeasure.org"
-            },
-            {
-              "id": "Goal.target:GM005.detail[x].code",
-              "path": "Goal.target.detail[x].code",
-              "constraint": [
-                {
-                  "key": "ihis-gm005-health-goal-measure-validation",
-                  "severity": "error",
-                  "human": "If present, GM005 goal measure allowed values are d, wk, mo",
-                  "expression": "($this in ('d' | 'wk' | 'mo'))"
+                  "code": "Quantity",
+                  "profile": [
+                    "http://hl7.org/fhir/StructureDefinition/Duration"
+                  ]
                 }
               ]
             }
@@ -407,6 +268,38 @@
           ]
         }
       }
+    },
+    {
+      "fullUrl": "http://loinc.org",
+      "resource": {
+        "resourceType": "ValueSet",
+        "id": "loinc.org",
+        "url": "http://loinc.org",
+        "version": "1.0",
+        "name": "LOINC code",
+        "status": "active",
+        "date": "2021-06-06",
+        "publisher": "loinc",
+        "compose": {
+          "include": [
+            {
+              "system": "http://loinc.org",
+              "concept": [
+                {
+                  "code": "123-4",
+                  "display": "123-4"
+                }
+              ]
+            }
+          ]
+        }
+      }
     }
-  ]
+  ],
+  "id": "structureDefinitions",
+  "meta": {
+    "lastUpdated": "2021-05-05T08:04:45.3420489+00:00"
+  },
+  "resourceType": "Bundle",
+  "type": "collection"
 }

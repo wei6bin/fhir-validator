@@ -1,5 +1,4 @@
-﻿
-using Hl7.Fhir.Model;
+﻿using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Validation;
@@ -30,29 +29,25 @@ var carePlan = new CarePlan()
     Subject = new ResourceReference("Patient/abcd"),
     Contained = new List<Resource>()
     {
-        new Goal
-        {
-            Meta = new Meta
-            {
-                Profile = new List<string> { "http://ihis.sg/profile/HealthPlanGoal1" },
-            },
-            Id = "mygoal1",
-            LifecycleStatus = Goal.GoalLifecycleStatus.Accepted,
-            Description = new CodeableConcept { Text = "life goals" },
-            Subject = new ResourceReference("Patient/abcd"),
-            Target = new List<Goal.TargetComponent>
-            {
-                new Goal.TargetComponent
-                {
-                    Measure = new CodeableConcept { Text = "life goals" },
-                    Detail = new Quantity(12, "d"),
-                    //new Duration
-                    //{
-                    //   Value = 5m, System = "http://unitsofmeasure.org", Code = "d", Unit = "days"
-                    //},
-                },
-            },
-        },
+        //new Goal
+        //{
+        //    Meta = new Meta
+        //    {
+        //        Profile = new List<string> { "http://ihis.sg/profile/HealthPlanGoal1" },
+        //    },
+        //    Id = "mygoal1",
+        //    LifecycleStatus = Goal.GoalLifecycleStatus.Accepted,
+        //    Description = new CodeableConcept { Text = "life goals" },
+        //    Subject = new ResourceReference("Patient/abcd"),
+        //    Target = new List<Goal.TargetComponent>
+        //    {
+        //        new Goal.TargetComponent
+        //        {
+        //            Measure = new CodeableConcept { Text = "life goals" },
+        //            Detail = new Quantity(12, "d"),
+        //        },
+        //    },
+        //},
         new Goal
         {
             Meta = new Meta
@@ -67,18 +62,42 @@ var carePlan = new CarePlan()
             {
                 new Goal.TargetComponent
                 {
-                    Measure = new CodeableConcept { Text = "life goals" },
+                    Measure = new CodeableConcept
+                    {
+                        Coding = new List<Coding>()
+                        {
+                            new Coding
+                            {
+                                System = "http://ihis.sg/ValueSet/hsg-goal-measure",
+                                Code = "GM004",
+                                Display = "BP1"
+                            }
+                        },
+                        Text = "life goals"
+                    },
                     Detail = new Ratio()
                     {
-                        Numerator = new Quantity(12,"D"),
-                        Denominator = new Quantity(12,"D"),
+                        Numerator = new Quantity(12, "D"),
+                        Denominator = new Quantity(12, "D"),
                     }
                 },
-                //new Goal.TargetComponent
-                //{
-                //    Measure = new CodeableConcept { Text = "life goals" },
-                //    Detail = new Quantity(12, "d"),
-                //},
+                new Goal.TargetComponent
+                {
+                    Measure = new CodeableConcept
+                    {
+                        Coding = new List<Coding>()
+                        {
+                            new Coding
+                            {
+                                System = "http://ihis.sg/ValueSet/hsg-goal-measure",
+                                Code = "GM005",
+                                Display = "BP2"
+                            }
+                        },
+                        Text = "life goals"
+                    },
+                    Detail = new Quantity(12, "d"),
+                }
             },
         }
     },
@@ -101,6 +120,7 @@ Console.WriteLine(result.ToJson(new FhirJsonSerializationSettings() { Pretty = t
 class JsonFileResolver : IResourceResolver
 {
     private readonly Bundle bundle;
+
     public JsonFileResolver(string jsonFile)
     {
         var jsonParser = new FhirJsonParser();
@@ -111,24 +131,24 @@ class JsonFileResolver : IResourceResolver
     {
         var split = uri.Split('|');
         var res = bundle.Entry
-           .SingleOrDefault(x =>
-           {
-               if (x.Resource is IVersionableConformanceResource ver && ver.Url != null)
-               {
-                   if (split.Length == 2 && ver.Version != null)
-                   {
-                       return ver.Url == split[0] && ver.Version == split[1];
-                   }
-                   else
-                   {
-                       return ver.Url == uri;
-                   }
-               }
-               else
-               {
-                   return x.FullUrl == uri;
-               }
-           })?.Resource;
+            .SingleOrDefault(x =>
+            {
+                if (x.Resource is IVersionableConformanceResource ver && ver.Url != null)
+                {
+                    if (split.Length == 2 && ver.Version != null)
+                    {
+                        return ver.Url == split[0] && ver.Version == split[1];
+                    }
+                    else
+                    {
+                        return ver.Url == uri;
+                    }
+                }
+                else
+                {
+                    return x.FullUrl == uri;
+                }
+            })?.Resource;
         return res;
     }
 
