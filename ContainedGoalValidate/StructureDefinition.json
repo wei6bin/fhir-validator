@@ -34,7 +34,8 @@
                 {
                   "code": "Reference",
                   "targetProfile": [
-                    "http://ihis.sg/profile/HealthPlanGoal1"
+                     "http://ihis.sg/profile/HealthPlanGoal1",
+                     "http://ihis.sg/profile/G4"
                   ],
                   "aggregation": [
                     "contained"
@@ -76,7 +77,7 @@
                 {
                   "code": "Quantity",
                   "profile": [
-                    "http://hl7.org/fhir/StructureDefinition/Duration"
+                     "http://hl7.org/fhir/StructureDefinition/Duration"
                   ]
                 }
               ]
@@ -94,122 +95,113 @@
       }
     },
     {
-      "fullUrl": "http://ihis.sg/profile/G4",
-      "resource": {
-        "resourceType": "StructureDefinition",
-        "url": "http://ihis.sg/profile/G4",
-        "name": "G4",
-        "status": "draft",
-        "fhirVersion": "4.0.1",
-        "kind": "resource",
-        "abstract": false,
-        "type": "Goal",
-        "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Goal",
-        "derivation": "constraint",
-        "differential": {
-          "element": [
-            {
-              "id": "Goal.target",
-              "path": "Goal.target",
-              "min": 1,
-              "max": "1"
-            },
-            {
-              "id": "Goal.target.detail[x]",
-              "path": "Goal.target.detail[x]",
-              "type": [
-                {
-                  "code": "Ratio",
-                  "profile": [
-                    "http://hl7.org/fhir/StructureDefinition/Ratio"
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      }
-    },
-    {
       "fullUrl": "http://ihis.sg/profile/G42",
       "resource": {
-        "resourceType": "StructureDefinition",
-        "url": "http://ihis.sg/profile/G42",
-        "name": "G42",
-        "status": "draft",
-        "fhirVersion": "4.0.1",
-        "kind": "resource",
-        "abstract": false,
-        "type": "Goal",
-        "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Goal",
-        "derivation": "constraint",
-        "differential": {
-          "element": [
-            {
-              "id": "Goal.target",
-              "path": "Goal.target",
-              "slicing": {
-                "discriminator": [
-                  {
-                    "type": "value",
-                    "path": "measure.coding.code"
+         "resourceType": "StructureDefinition",
+         "url": "http://ihis.sg/profile/G42",
+         "name": "G42",
+         "status": "draft",
+         "fhirVersion": "4.0.1",
+         "kind": "resource",
+         "abstract": false,
+         "type": "Goal",
+         "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Goal",
+         "derivation": "constraint",
+         "differential": {
+            "element": [
+               {
+                  "id": "Goal.target",
+                  "path": "Goal.target",
+                  "slicing": {
+                     "discriminator": [
+                        {
+                           "type": "value",
+                           "path": "measure.coding.code"
+                        }
+                     ],
+                     "rules": "open"
                   }
-                ],
-                "rules": "open"
-              },
-              "min": 1,
-              "max": "2"
-            },
-            {
-              "id": "Goal.target:GM004",
-              "path": "Goal.target",
-              "sliceName": "GM004",
-              "min": 1,
-              "max": "1"
-            },
-            {
-              "id": "Goal.target:GM004.measure.coding.code",
-              "path": "Goal.target.measure.coding.code",
-              "fixedCode": "GM004"
-            },
-            {
-              "id": "Goal.target:GM004.detail[x]",
-              "path": "Goal.target.detail[x]",
-              "type": [
-                {
-                  "code": "Ratio",
-                  "profile": [
-                    "http://hl7.org/fhir/StructureDefinition/Ratio"
+               },
+               {
+                  "id": "Goal.target.detail[x]",
+                  "path": "Goal.target.detail[x]",
+                  "binding": {
+                     "extension": [
+                        {
+                           "url": "http://hl7.org/fhir/StructureDefinition/elementdefinition-bindingName",
+                           "valueString": "GoalTargetDetail"
+                        }
+                     ],
+                     "strength": "required",
+                     "valueSet": "http://unitsofmeasure.org"
+                  }
+               },
+               {
+                  "id": "Goal.target:GM004",
+                  "path": "Goal.target",
+                  "sliceName": "GM004",
+                  "min": 1,
+                  "max": "1"
+               },
+               {
+                  "id": "Goal.target:GM004.measure.coding.code",
+                  "path": "Goal.target.measure.coding.code",
+                  "fixedCode": "GM004"
+               },
+               {
+                  "id": "Goal.target:GM004.detail[x]",
+                  "path": "Goal.target.detail[x]",
+                  "min": 1,
+                  "type": [
+                     {
+                        "code": "Ratio"
+                     }
                   ]
-                }
-              ]
-            },
-            {
-              "id": "Goal.target:GM005",
-              "path": "Goal.target",
-              "sliceName": "GM005",
-              "min": 0,
-              "max": "1"
-            },
-            {
-              "id": "Goal.target:GM005.measure.coding.code",
-              "path": "Goal.target.measure.coding.code",
-              "fixedCode": "GM005"
-            },
-            {
-              "id": "Goal.target:GM005.detail[x]",
-              "path": "Goal.target.detail[x]",
-              "type": [
-                {
-                  "code": "Quantity",
-                  "profile": [
-                    "http://hl7.org/fhir/StructureDefinition/Duration"
-                  ]
-                }
-              ]
-            }
-          ]
-        }
+               },
+               {
+                  "id": "Goal.target:GM004.detail[x].numerator",
+                  "path": "Goal.target.detail[x].numerator",
+                  "binding": {
+                     "strength": "required",
+                     "valueSet": "http://unitsofmeasure.org"
+                  }
+               },
+               {
+                  "id": "Goal.target:GM004.detail[x].denominator",
+                  "path": "Goal.target.detail[x].denominator",
+                  "binding": {
+                     "strength": "required",
+                     "valueSet": "http://unitsofmeasure.org"
+                  }
+               },
+               {
+                  "id": "Goal.target:GM005",
+                  "path": "Goal.target",
+                  "sliceName": "GM005",
+                  "min": 1,
+                  "max": "1"
+               },
+               {
+                  "id": "Goal.target:GM005.measure.coding.code",
+                  "path": "Goal.target.measure.coding.code",
+                  "fixedCode": "GM005"
+               },
+               {
+                  "id": "Goal.target:GM005.detail[x]",
+                  "path": "Goal.target.detail[x]",
+                  "min": 1,
+                  "type": [
+                     {
+                        "code": "Quantity"
+                     }
+                  ],
+                  "binding": {
+                     "strength": "required",
+                     "valueSet": "http://unitsofmeasure.org"
+                  }
+               }
+            ]
+         }
       }
     },
     {
@@ -254,16 +246,16 @@
           "include": [
             {
               "system": "http://unitsofmeasure.org",
-              "concept": [
-                {
-                  "code": "d",
-                  "display": "days"
-                },
-                {
-                  "code": "min",
-                  "display": "minutes"
-                }
-              ]
+               "concept": [
+                  {
+                     "code": "d",
+                     "display": "days"
+                  },
+                  {
+                     "code": "min",
+                     "display": "minutes"
+                  }
+               ]
             }
           ]
         }
