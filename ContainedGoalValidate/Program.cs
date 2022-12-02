@@ -66,8 +66,8 @@ var g42goal = new Goal
          },
          Detail = new Ratio()
          {
-            Numerator = new Quantity(12, "d"),
-            Denominator = new Quantity(12, "d"),
+            Numerator = new Quantity(31, "mm[Hg]"),
+            Denominator = new Quantity(31, "mm[Hg]"),
          }
       },
       new Goal.TargetComponent
@@ -89,6 +89,76 @@ var g42goal = new Goal
       }
    }
 };
+
+var g5 = new Goal()
+{
+    Meta = new Meta
+    {
+        Profile = new List<string> { "http://ihis.sg/profile/G5" },
+    },
+    Id = "mygoal5",
+    LifecycleStatus = Goal.GoalLifecycleStatus.Accepted,
+    Description = new CodeableConcept { Text = "life goals" },
+    Subject = new ResourceReference("Patient/abcd"),
+    Target = new List<Goal.TargetComponent>
+    {
+        new Goal.TargetComponent
+        {
+            Measure = new CodeableConcept
+            {
+                Coding = new List<Coding>()
+                {
+                    new Coding
+                    {
+                        System = "http://ihis.sg/ValueSet/hsg-goal-measure",
+                        Code = "GM006",
+                        Display = "BP1"
+                    }
+                },
+                Text = "life goals"
+            },
+            Detail = new Quantity(15, "mmol/L"),
+            Due = new Duration
+            {
+                Value = 12,
+                Unit = "mo"
+            }
+        }
+    }
+};
+
+var g8 = new Goal()
+{
+    Meta = new Meta
+    {
+        Profile = new List<string> { "http://ihis.sg/profile/G8" },
+    },
+    Id = "mygoal8",
+    LifecycleStatus = Goal.GoalLifecycleStatus.Accepted,
+    Description = new CodeableConcept { Text = "life goals" },
+    Subject = new ResourceReference("Patient/abcd"),
+    Target = new List<Goal.TargetComponent>
+    {
+        new Goal.TargetComponent
+        {
+            Measure = new CodeableConcept
+            {
+                Coding = new List<Coding>()
+                {
+                    new Coding
+                    {
+                        System = "http://ihis.sg/ValueSet/hsg-goal-measure",
+                        Code = "GM007",
+                        Display = "BP1"
+                    }
+                },
+                Text = "life goals"
+            },
+            Detail = new Quantity(2, "wk")
+        }
+    }
+};
+
 var carePlan = new CarePlan()
 {
     Meta = new Meta
@@ -100,7 +170,9 @@ var carePlan = new CarePlan()
     Subject = new ResourceReference("Patient/abcd"),
     Contained = new List<Resource>()
     {
-       g42goal
+       g42goal,
+       g5,
+       g8
     },
     Goal = new List<ResourceReference>()
     {
@@ -111,6 +183,12 @@ var carePlan = new CarePlan()
         new ResourceReference()
         {
             Reference = "#mygoal4"
+        },new ResourceReference()
+        {
+            Reference = "#mygoal5"
+        },new ResourceReference()
+        {
+            Reference = "#mygoal8"
         }
     }
 };
@@ -118,6 +196,12 @@ var carePlan = new CarePlan()
 Console.WriteLine("Validating goal");
 var g42result = validator.Validate(g42goal);
 Console.WriteLine(g42result.ToJson(new FhirJsonSerializationSettings() { Pretty = true }));
+var g5result = validator.Validate(g5);
+Console.WriteLine(g5result.ToJson(new FhirJsonSerializationSettings() { Pretty = true }));
+
+var g8result = validator.Validate(g8);
+Console.WriteLine(g8result.ToJson(new FhirJsonSerializationSettings() { Pretty = true }));
+
 Console.WriteLine("Validating careplan");
 var result = validator.Validate(carePlan);
 Console.WriteLine(result.ToJson(new FhirJsonSerializationSettings() { Pretty = true }));
